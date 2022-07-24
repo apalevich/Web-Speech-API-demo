@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>Web Speech API demo</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel='stylesheet' href='style.css'>
 </head>
 <body>
-    <div>
-        <form id="form">
-            <textarea name="Text" id="text" cols="30" rows="10">Okay, let's try to speech this text</textarea>
-            <button type="submit">Read</button>
-        </form>
+    <div class='container'>
+        <div class="sidebar" id="buttons">
+        </div>
+        <div class="content">
+            <button type='button'>Recognize from speech</button>
+            <textarea id='text' cols='30' rows='10'></textarea>
+            <button type='button'>Read from text</button>
+            <button type='reset'>Clear</button>
+        </div>
     </div>
 </body>
-<script src="script.js"></script>
+<script src='script.js'></script>
 </html>
