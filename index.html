@@ -14,9 +14,12 @@
         <div class="content">
             <button type='button'>Recognize from speech</button>
             <textarea id='text' cols='30' rows='10'></textarea>
-            <button type='button'>Read from text</button>
+            <button type='button' id="read">Read from text</button>
             <button type='reset'>Clear</button>
         </div>
+        <p>
+            Note: On some browsers, like Chrome, using Speech Recognition on a web page involves a server-based recognition engine. Your audio is sent to a web service for recognition processing, so it won't work offline.
+        </p>
     </div>
 </body>
 <script src='script.js'></script>

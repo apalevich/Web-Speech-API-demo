@@ -54,14 +54,14 @@ const languages = [
     },
 ];
 
-document.addEventListener('DOMContentLoaded', createLanguageToggle)
-document.querySelectorAll('input').forEach(el => el.addEventListener('change', console.log));
+// DOM-elements
 
-function checkFlag(code) {
-    return fetch('https://countryflagsapi.com/png/' + code)
-    .then(r => r.blob())
-    .then(blob => URL.createObjectURL(blob))
-}
+const launchReadingButton = document.getElementById('read');
+const text = document.getElementById('text');
+
+// initializaion
+
+document.addEventListener('DOMContentLoaded', createLanguageToggle)
 
 function createLanguageToggle() {
     languages.forEach(async lang => {
@@ -74,11 +74,11 @@ function createLanguageToggle() {
         input.value = lang.langCode;
         input.id = lang.langCode;
         input.classList.add('input_lang')
+        input.addEventListener('change', getCurLang); //for testing
 
         const label = document.createElement('label');
         label.htmlFor = lang.langCode;
         label.textContent = lang.name.toUpperCase();
-        // label.innerHTML = `<span class="label_text">${lang.name}</span>`;
         label.style.backgroundImage = `url(${flagURL})`
         label.classList.add('label_lang')
 
@@ -87,21 +87,33 @@ function createLanguageToggle() {
     });
 }
 
+function checkFlag(code) {
+    return fetch('https://countryflagsapi.com/png/' + code)
+    .then(r => r.blob())
+    .then(blob => URL.createObjectURL(blob))
+}
+
 function parseCountryCode(code) {
     return code.match(/[A-Z]{2}/g)[0]
 }
 
-// DOM elements:
+function getCurLang(e) {
+    return document.querySelector('input[name="languageToggle"]:checked').value
+}
 
-// const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition);
-// recognition.lang = supportedLanguages[6];
-// console.log(recognition)
+// Recognition:
 
+const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition);
+recognition.lang = getCurLang();
+console.log(recognition)
 
-// form.addEventListener('submit', (e) => {
-//     e.preventDefault();
-//     const text = document.getElementById('text');
-//     console.log(text.value);
-//     const utterance = new SpeechSynthesisUtterance(text.value);
-//     speechSynthesis.speak(utterance);
-// })
+// Speech:
+
+launchReadingButton.addEventListener('click', (e) => {
+    const utterance = new SpeechSynthesisUtterance(text.value);
+    utterance.lang = getCurLang();
+
+    console.log(`Speeching: ${text.value} in ${utterance.lang} language`);
+
+    speechSynthesis.speak(utterance);
+})
